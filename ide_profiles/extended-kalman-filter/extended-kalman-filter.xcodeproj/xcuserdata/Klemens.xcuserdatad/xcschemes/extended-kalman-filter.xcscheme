@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A366EADA1E7B0FB1003B4973"
-               BuildableName = "P6_EKF"
-               BlueprintName = "P6_EKF"
-               ReferencedContainer = "container:P6_EKF.xcodeproj">
+               BlueprintIdentifier = "A366EAEE1E7B3F7A003B4973"
+               BuildableName = "extended-kalman-filter"
+               BlueprintName = "extended-kalman-filter"
+               ReferencedContainer = "container:extended-kalman-filter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A366EADA1E7B0FB1003B4973"
-            BuildableName = "P6_EKF"
-            BlueprintName = "P6_EKF"
-            ReferencedContainer = "container:P6_EKF.xcodeproj">
+            BlueprintIdentifier = "A366EAEE1E7B3F7A003B4973"
+            BuildableName = "extended-kalman-filter"
+            BlueprintName = "extended-kalman-filter"
+            ReferencedContainer = "container:extended-kalman-filter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A366EADA1E7B0FB1003B4973"
-            BuildableName = "P6_EKF"
-            BlueprintName = "P6_EKF"
-            ReferencedContainer = "container:P6_EKF.xcodeproj">
+            BlueprintIdentifier = "A366EAEE1E7B3F7A003B4973"
+            BuildableName = "extended-kalman-filter"
+            BlueprintName = "extended-kalman-filter"
+            ReferencedContainer = "container:extended-kalman-filter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A366EADA1E7B0FB1003B4973"
-            BuildableName = "P6_EKF"
-            BlueprintName = "P6_EKF"
-            ReferencedContainer = "container:P6_EKF.xcodeproj">
+            BlueprintIdentifier = "A366EAEE1E7B3F7A003B4973"
+            BuildableName = "extended-kalman-filter"
+            BlueprintName = "extended-kalman-filter"
+            ReferencedContainer = "container:extended-kalman-filter.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

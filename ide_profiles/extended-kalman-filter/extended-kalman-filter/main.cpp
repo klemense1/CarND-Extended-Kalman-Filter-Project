@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  P6_EKF
+//  extended-kalman-filter
 //
 //  Created by Klemens on 16.03.17.
 //  Copyright © 2017 Klemens. All rights reserved.

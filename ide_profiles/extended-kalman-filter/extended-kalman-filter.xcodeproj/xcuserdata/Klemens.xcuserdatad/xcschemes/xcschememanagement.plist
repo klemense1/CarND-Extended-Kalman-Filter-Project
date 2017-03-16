@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>P6_EKF.xcscheme</key>
+		<key>extended-kalman-filter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A366EADA1E7B0FB1003B4973</key>
+		<key>A366EAEE1E7B3F7A003B4973</key>
 		<dict>
 			<key>primary</key>
 			<true/>
