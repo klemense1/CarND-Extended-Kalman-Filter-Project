@@ -6,10 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		A366EAF31E7B3F7A003B4973 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A366EAF21E7B3F7A003B4973 /* main.cpp */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		A366EAED1E7B3F7A003B4973 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -23,8 +19,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A366EAEF1E7B3F7A003B4973 /* extended-kalman-filter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "extended-kalman-filter"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A366EAF21E7B3F7A003B4973 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A366EAEF1E7B3F7A003B4973 /* extended-kalman-filter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "extended-kalman-filter"; path = "/Users/Klemens/Udacity_Nano_Car/P6_ExtendedKalmanFilterProject/ide_profiles/extended-kalman-filter/build/Debug/extended-kalman-filter"; sourceTree = "<absolute>"; };
 		A366EAFF1E7B4021003B4973 /* Array */ = {isa = PBXFileReference; lastKnownFileType = text; path = Array; sourceTree = "<group>"; };
 		A366EB001E7B4021003B4973 /* Cholesky */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cholesky; sourceTree = "<group>"; };
 		A366EB011E7B4021003B4973 /* CholmodSupport */ = {isa = PBXFileReference; lastKnownFileType = text; path = CholmodSupport; sourceTree = "<group>"; };
@@ -375,33 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				A366EAFD1E7B4021003B4973 /* src */,
-				A366EAF11E7B3F7A003B4973 /* extended-kalman-filter */,
-				A366EAF01E7B3F7A003B4973 /* Products */,
-				A366EAF91E7B3FE7003B4973 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		A366EAF01E7B3F7A003B4973 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A366EAEF1E7B3F7A003B4973 /* extended-kalman-filter */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A366EAF11E7B3F7A003B4973 /* extended-kalman-filter */ = {
-			isa = PBXGroup;
-			children = (
-				A366EAF21E7B3F7A003B4973 /* main.cpp */,
-			);
-			path = "extended-kalman-filter";
-			sourceTree = "<group>";
-		};
-		A366EAF91E7B3FE7003B4973 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A366EAFD1E7B4021003B4973 /* src */ = {
@@ -1092,7 +1061,7 @@
 				en,
 			);
 			mainGroup = A366EAE61E7B3F7A003B4973;
-			productRefGroup = A366EAF01E7B3F7A003B4973 /* Products */;
+			productRefGroup = A366EAE61E7B3F7A003B4973;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1106,7 +1075,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A366EAF31E7B3F7A003B4973 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
