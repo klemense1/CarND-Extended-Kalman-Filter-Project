@@ -36,7 +36,17 @@ FusionEKF::FusionEKF() {
     * Finish initializing the FusionEKF.
     * Set the process and measurement noises
   */
+    H_laser_ << 1, 0, 0, 0,
+                  0, 1, 0, 0;
 
+  /// ???
+  //predicted state  example
+  //px = 1, py = 2, vx = 0.2, vy = 0.4
+  VectorXd x_predicted(4);
+  x_predicted << 1, 2, 0.2, 0.4;
+  
+  tools = Tools();
+  Hj_ = tools.CalculateJacobian(x_predicted);
 
 }
 
