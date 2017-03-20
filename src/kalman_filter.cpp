@@ -53,19 +53,33 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     * update the state by using Extended Kalman Filter equations
   */
     VectorXd h;
-    h << sqrt(x_[0]*x_[0] + x_[1]*x_[1]),
-                    atan(x_[1]/x_[2]),
-            (x_[0]*x_[2] + x_[1]*x_[3])/(sqrt(x_[0]*x_[0]+x_[1]*x_[1]));
-    VectorXd y = z - h;
-    MatrixXd Ht = H_.transpose();
-    MatrixXd S = H_ * P_ * Ht + R_;
+
+    double px = x_[0];
+    double py = x_[1];
+    double vx = x_[2];
+    double vy = x_[3];
+
+    double rho = sqrt(px*px + py*py);
+    double phi = atan(py/px);
+    double rho_dot = (px*vx + py*vy)/rho;
+
+    // predicted state x_ is mapped into measurement space
+    h << rho,
+            phi,
+            rho_dot;
+
+    VectorXd y = z - h; // in polar coordinates!
+
+    MatrixXd Hj = tools.CalculateJacobian(x_);
+    MatrixXd Hjt = Hj.transpose();
+    MatrixXd S = Hj * P_ * Hjt + R_;
     MatrixXd Si = S.inverse();
-    MatrixXd PHt = P_ * Ht;
+    MatrixXd PHt = P_ * Hjt;
     MatrixXd K = PHt * Si;
     
     //new estimate
-    x_ = x_ + (K * y);
+    x_ = x_ + (K * y); // in cartesian coordinates!
     long x_size = x_.size();
     MatrixXd I = MatrixXd::Identity(x_size, x_size);
-    P_ = (I - K * H_) * P_;
+    P_ = (I - K * Hj) * P_;
 }
