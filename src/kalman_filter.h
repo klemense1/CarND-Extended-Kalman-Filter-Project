@@ -2,6 +2,8 @@
 #define KALMAN_FILTER_H_
 #include "Eigen/Dense"
 #include "tools.h"
+#include <math.h>
+
 class KalmanFilter {
 public:
 
@@ -23,6 +25,8 @@ public:
   // measurement covariance matrix
   Eigen::MatrixXd R_;
 
+  // measurement prediction for Radar (polar coordinates)
+  Eigen::VectorXd hx_;
   /**
    * Constructor
    */
@@ -64,10 +68,7 @@ public:
    */
   void UpdateEKF(const Eigen::VectorXd &z);
 
-private:
 
-    // tool object used to compute Jacobian and RMSE
-    Tools tools;
 };
 
 #endif /* KALMAN_FILTER_H_ */

@@ -1,4 +1,7 @@
 #include "kalman_filter.h"
+#include <iostream>
+
+using namespace std;
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -18,8 +21,7 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-  /**
-  TODO: DONE
+  /*
     * predict the state
   */
     x_ = F_ * x_;
@@ -28,10 +30,12 @@ void KalmanFilter::Predict() {
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  /**
-  TODO: DONE
-    * update the state by using Kalman Filter equations
+  /*
+    * Update the state by using Kalman Filter equations
+    * For Lidar measurement update
+    * Uses the H matrix for calculating y, S, K and P
   */
+
     VectorXd z_pred = H_ * x_;
     VectorXd y = z - z_pred;
     MatrixXd Ht = H_.transpose();
@@ -49,28 +53,25 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
-  TODO:
-    * update the state by using Extended Kalman Filter equations
+    * Update the state by using Extended Kalman Filter equations
+    * Used for Radar measurement update
+    * Directly calculates new measurement y in polar coordinates from h function (instead of y = z - Hj * x)
+    * Uses Hjacobian Hj to calculate S, K and P.
   */
-    VectorXd h;
 
-    double px = x_[0];
-    double py = x_[1];
-    double vx = x_[2];
-    double vy = x_[3];
+    VectorXd y = z - hx_; // in polar coordinates!
+    if (y[2] > M_PI) {
+        y[2] = y[2] - 2*M_PI;
 
-    double rho = sqrt(px*px + py*py);
-    double phi = atan(py/px);
-    double rho_dot = (px*vx + py*vy)/rho;
+        cout << "Adjusted phi in y" << endl;
+    }
+    else if (y[2] < -M_PI) {
+        y[2] = y[2] + 2*M_PI;
 
-    // predicted state x_ is mapped into measurement space
-    h << rho,
-            phi,
-            rho_dot;
+        cout << "Adjusted phi in y" << endl;
+    }
 
-    VectorXd y = z - h; // in polar coordinates!
-
-    MatrixXd Hj = tools.CalculateJacobian(x_);
+    MatrixXd Hj = H_;
     MatrixXd Hjt = Hj.transpose();
     MatrixXd S = Hj * P_ * Hjt + R_;
     MatrixXd Si = S.inverse();
