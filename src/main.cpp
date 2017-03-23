@@ -14,6 +14,9 @@ using Eigen::VectorXd;
 using std::vector;
 // test
 
+#define USE_RADAR
+#define USE_LIDAR
+
 void check_arguments(int argc, char* argv[]) {
   string usage_instructions = "Usage instructions: ";
   usage_instructions += argv[0];
@@ -79,9 +82,11 @@ int main(int argc, char* argv[]) {
 
     // reads first element from the current line
     iss >> sensor_type;
-    if (sensor_type.compare("L") == 0) {
-      // LASER MEASUREMENT
 
+    if (sensor_type.compare("L") == 0) {
+
+      // LASER MEASUREMENT
+#ifdef USE_LIDAR
       // read measurements at this timestamp
       meas_package.sensor_type_ = MeasurementPackage::LASER;
       meas_package.raw_measurements_ = VectorXd(2);
@@ -93,9 +98,25 @@ int main(int argc, char* argv[]) {
       iss >> timestamp;
       meas_package.timestamp_ = timestamp;
       measurement_pack_list.push_back(meas_package);
-    } else if (sensor_type.compare("R") == 0) {
-      // RADAR MEASUREMENT
 
+      // read ground truth data to compare later
+      float x_gt;
+      float y_gt;
+      float vx_gt;
+      float vy_gt;
+      iss >> x_gt;
+      iss >> y_gt;
+      iss >> vx_gt;
+      iss >> vy_gt;
+      gt_package.gt_values_ = VectorXd(4);
+      gt_package.gt_values_ << x_gt, y_gt, vx_gt, vy_gt;
+      gt_pack_list.push_back(gt_package);
+#endif
+
+    } else if (sensor_type.compare("R") == 0) {
+
+      // RADAR MEASUREMENT
+#ifdef USE_RADAR
       // read measurements at this timestamp
       meas_package.sensor_type_ = MeasurementPackage::RADAR;
       meas_package.raw_measurements_ = VectorXd(3);
@@ -109,20 +130,22 @@ int main(int argc, char* argv[]) {
       iss >> timestamp;
       meas_package.timestamp_ = timestamp;
       measurement_pack_list.push_back(meas_package);
-    }
 
-    // read ground truth data to compare later
-    float x_gt;
-    float y_gt;
-    float vx_gt;
-    float vy_gt;
-    iss >> x_gt;
-    iss >> y_gt;
-    iss >> vx_gt;
-    iss >> vy_gt;
-    gt_package.gt_values_ = VectorXd(4);
-    gt_package.gt_values_ << x_gt, y_gt, vx_gt, vy_gt;
-    gt_pack_list.push_back(gt_package);
+      // read ground truth data to compare later
+      float x_gt;
+      float y_gt;
+      float vx_gt;
+      float vy_gt;
+      iss >> x_gt;
+      iss >> y_gt;
+      iss >> vx_gt;
+      iss >> vy_gt;
+      gt_package.gt_values_ = VectorXd(4);
+      gt_package.gt_values_ << x_gt, y_gt, vx_gt, vy_gt;
+      gt_pack_list.push_back(gt_package);
+#endif
+
+    }
   }
 
   // Create a Fusion EKF instance

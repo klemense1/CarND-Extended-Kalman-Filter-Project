@@ -137,8 +137,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.F_(0, 2) = dt;
     ekf_.F_(1, 3) = dt;
 
-    cout << "F_ = " << ekf_.F_ << endl;
-
     // update process covariance matrix Q
     ekf_.Q_ = MatrixXd(4, 4);
     ekf_.Q_ << dt_4 / 4 * noise_ax, 0, dt_3 / 2 * noise_ax, 0,
