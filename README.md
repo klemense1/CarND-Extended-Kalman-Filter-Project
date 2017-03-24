@@ -1,5 +1,17 @@
-# Extended Kalman Filter Project Starter Code
-Self-Driving Car Engineer Nanodegree Program
+## Extended Kalman Filter
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
+---
+
+**Extended Kalman Filter Project**
+
+The goals / steps of this project are the following:
+
+* Your Sensor Fusion algorithm follows the general processing flow as taught in the preceding lessons.
+* Your Kalman Filter algorithm handles the first measurements appropriately.
+* Your Kalman Filter algorithm first predicts then updates.
+* Your Kalman Filter can handle radar and lidar measurements.
+* Your algorithm should meet the specified accuracy requirements when compared to ground truth data
 
 ---
 
@@ -26,18 +38,11 @@ Self-Driving Car Engineer Nanodegree Program
    some sample inputs in 'data/'.
     - eg. `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt output.txt`
 
-## Generating Additional Data
-
-This is optional!
-
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
-
 
 ## Dataflow
 
-1. The measuremennt processor/matlab simulator is generating the FUSION .txt file:
+1. The measuremennt processor/matlab simulator (see the
+[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities)) is generating the FUSION .txt file:
 
     "data/obj_pose-laser-radar-synthetic-ukf-input.txt";
 
@@ -74,8 +79,10 @@ Matlab scripts that can generate additional data.
 
 
 ## Results
-This code implements an Extended Kalman Filter using measurements from both Radar and Lidar to predict the movement of a bycicle.
 
+This code implements an Extended Kalman Filter using measurements from both Radar and Lidar to predict the movement of a bycicle. In the following, the code is applied to the example file sample-laser-radar-measurement-data-1.txt. Influences of radar and lidar data to the overall result are discussed.
+
+#### Sensor fusion, Radar and Lidar data used together
 ![](pictures/Output1.png)
 
 Root mean square error is used to evaluate the performance of the implemented prediction. The estimated state vector and the true state vector (called ground truth) are used here.
@@ -90,11 +97,10 @@ vx  |  0.54319
 vy  |  0.544191
 
 
-![Lidar Output only](pictures/Lidar_Output1.png)
-Only Lidar. Accuracy goes down to:
-Accuracy - RMSE:
+#### Lidar data used only
 
-Quite good in estimating the position but worse in estimating the velocity. That makes sense, as the lidar can only measure positions.
+![Lidar Output only](pictures/Lidar_Output1.png)
+Accuracy goes down. Quite good in estimating the position but worse in estimating the velocity. That makes sense, as the lidar can only measure positions, not velocities.
 
 variable  |  RMSE value
 --|--
@@ -103,11 +109,10 @@ py  |  0.0572297
 vx  |  0.625587
 vy  |  0.560902
 
-![Radar Output only](pictures/Radar_Output1.png)
-Only Radar.
-Accuracy - RMSE:
+#### Radar data used only
 
-Much worse in estimating the position (than with only radar) but not as bad in estimating the velocity. That makes sense, as the radar is able to measure rho_dot.
+![Radar Output only](pictures/Radar_Output1.png)
+Much worse in estimating the position (than with only radar) but not as bad in estimating the velocity. That makes sense, as the radar is able to measure the velocity rho_dot.
 
 variable  |  RMSE value
 --|--
