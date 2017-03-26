@@ -91,11 +91,14 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
             float rho = measurement_pack.raw_measurements_[0];
             float phi = measurement_pack.raw_measurements_[1];
+            float rho_dot = measurement_pack.raw_measurements_[2];
 
             float px = rho*cos(phi);
             float py = rho*sin(phi);
+            float vx = rho_dot * cos(phi);
+            float vy = rho_dot * sin(phi);
 
-            ekf_.x_ << px, py, 0, 0;
+            ekf_.x_ << px, py, vx, vy;
             previous_timestamp_ = measurement_pack.timestamp_;
 
         } else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
@@ -129,27 +132,30 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;    //dt - expressed in seconds
     previous_timestamp_ = measurement_pack.timestamp_;
 
-    float dt_2 = dt * dt;
-    float dt_3 = dt_2 * dt;
-    float dt_4 = dt_3 * dt;
+    if ( dt > 0.001 )
+    {
+        float dt_2 = dt * dt;
+        float dt_3 = dt_2 * dt;
+        float dt_4 = dt_3 * dt;
 
-    // F matrix is modified so that the time is integrated
-    ekf_.F_(0, 2) = dt;
-    ekf_.F_(1, 3) = dt;
+        // F matrix is modified so that the time is integrated
+        ekf_.F_(0, 2) = dt;
+        ekf_.F_(1, 3) = dt;
 
-    // update process covariance matrix Q
-    ekf_.Q_ = MatrixXd(4, 4);
-    ekf_.Q_ << dt_4 / 4 * noise_ax, 0, dt_3 / 2 * noise_ax, 0,
-               0, dt_4 / 4 * noise_ay, 0, dt_3 / 2 * noise_ay,
-               dt_3 / 2 * noise_ax, 0, dt_2 * noise_ax, 0,
-               0, dt_3 / 2 * noise_ay, 0, dt_2 * noise_ay;
+        // update process covariance matrix Q
+        ekf_.Q_ = MatrixXd(4, 4);
+        ekf_.Q_ << dt_4 / 4 * noise_ax, 0, dt_3 / 2 * noise_ax, 0,
+                   0, dt_4 / 4 * noise_ay, 0, dt_3 / 2 * noise_ay,
+                   dt_3 / 2 * noise_ax, 0, dt_2 * noise_ax, 0,
+                   0, dt_3 / 2 * noise_ay, 0, dt_2 * noise_ay;
 
-    // call Predict function from kalman_filter.cpp
-    ekf_.Predict();
+        // call Predict function from kalman_filter.cpp
+        ekf_.Predict();
 
-    // print the output
-    cout << "x_ = " << ekf_.x_ << endl;
-    cout << "P_ = " << ekf_.P_ << endl;
+        // print the output
+        cout << "x_ = " << ekf_.x_ << endl;
+        cout << "P_ = " << ekf_.P_ << endl;
+    }
 
     /*****************************************************************************
      *  UPDATE
